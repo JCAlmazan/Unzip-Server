@@ -1,14 +1,30 @@
-const http = require('http');
+const express = require('express');
 
-const hostname = '127.0.0.1';
-const port = 3001;
+const morgan = require('morgan');
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hola Mundo');
+const cors = require('cors');
+
+// Settings
+const app = express();
+app.set('appName', 'Unzip Server');
+app.set('port', 3000);
+
+// Middlewares
+app.use(morgan('dev'));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Default route
+require('./routes')(app);
+app.get('/', (req, res) => res.status(200).send({
+  message: 'Welcome to Unzip Server, to unzip a file please make a POST request to /unzip',
+}));
+
+// Listen port
+app.listen(app.get('port'), () => {
+  console.log(app.get('appName'));
+  console.log('Server on port', app.get('port'));
 });
 
-server.listen(port, hostname, () => {
-  console.log(`El servidor se está ejecutando en http://${hostname}:${port}/`);
-});
+module.exports = app;

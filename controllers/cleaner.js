@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { FileCleaner } = require('cron-file-cleaner');
 
 const tmpWatcher = new FileCleaner('public/', 21600000, '0 */6 * * *', {

@@ -17,6 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Default route
 require('./routes')(app);
+
+app.use(express.static(`${__dirname}/public`));
+
 app.get('/', (req, res) => res.status(200).send({
   message: 'Welcome to Unzip Server, to unzip a file please make a POST request to /unzip',
 }));

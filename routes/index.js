@@ -4,7 +4,7 @@ const cleanerController = require('../controllers/cleaner');
 
 module.exports = (app) => {
   app.post('/unzip', unzipController.extract);
-  app.get('/cleaner', cleanerController.start);
-  app.get('/cleaner', cleanerController.stop);
-  app.get('/cleaner', cleanerController.clean);
+  app.get('/cleaner/start', cleanerController.start);
+  app.get('/cleaner/stop', cleanerController.stop);
+  app.get('/cleaner/clean', cleanerController.clean);
 };
